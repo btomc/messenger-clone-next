@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import { FullConversationType } from '@/types'
 import useOtherUser from '@/hooks/useOtherUser'
 import Avatar from '@/components/Avatar'
+import AvatarGroup from '@/components/AvatarGroup'
 
 interface ConversationBoxProps {
   data: FullConversationType
@@ -71,7 +72,11 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         selected ? 'bg-neutral-100' : 'bg-white'
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? (
+        <AvatarGroup users={data.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
       <div className='min-w-9 flex-1'>
         <div className='focus:outline-none'>
           <div className='flex justify-between items-center mb-1'>
@@ -88,7 +93,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
           <p
             className={clsx(
               'truncate text-sm',
-              hasSeen ? 'text-gray-500' : 'text-black font-medium'
+              hasSeen ? 'text-gray-500' : 'text-black font-semibold'
             )}
           >
             {lastMessageText}
